@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Material Amber 500, 700 -->
+    <color name="electricity_colorPrimary">#FFC107</color>
+    <color name="electricity_colorPrimaryDark">#FFA000</color>
+
+    <!-- Material Deep Purple 500, 700 -->
+    <color name="gas_colorPrimary">#673AB7</color>
+    <color name="gas_colorPrimaryDark">#512DA8</color>
 </resources>

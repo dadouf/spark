@@ -1,7 +1,7 @@
 package com.davidferrand.spark.ui.main;
 
 import android.animation.ArgbEvaluator;
-import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import com.davidferrand.spark.R;
 import com.davidferrand.spark.data.FuelType;
@@ -37,13 +36,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_fab)
     FloatingActionButton fab;
 
-    @BindView(R.id.test_position)
-    TextView tvPosition;
-    @BindView(R.id.test_offset1)
-    TextView tvPositionOffset;
-    @BindView(R.id.test_offset2)
-    TextView tvPositionOffsetPx;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,39 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // TODO cache colors
-                final int colorPrimaryCurrent = getResources().getColor(FuelType.valueOf(position).colorPrimaryRes);
-                final int colorPrimaryDarkCurrent = getResources().getColor(FuelType.valueOf(position).colorPrimaryDarkRes);
-
-                final int colorPrimaryBlend;
-                final int colorPrimaryDarkBlend;
-
-                if (positionOffset == 0) {
-                    // No movement: easy
-                    colorPrimaryBlend = colorPrimaryCurrent;
-                    colorPrimaryDarkBlend = colorPrimaryDarkCurrent;
-                } else {
-                    // The offset is always [0,1) and the scroll happens always between position n and n+1
-                    final int colorPrimaryNext = getResources().getColor(FuelType.valueOf(position + 1).colorPrimaryRes);
-                    final int colorPrimaryDarkNext = getResources().getColor(FuelType.valueOf(position + 1).colorPrimaryDarkRes);
-
-                    // Blend
-                    colorPrimaryBlend = (int) new ArgbEvaluator().evaluate(positionOffset,
-                            colorPrimaryCurrent, colorPrimaryNext);
-                    colorPrimaryDarkBlend = (int) new ArgbEvaluator().evaluate(positionOffset,
-                            colorPrimaryDarkCurrent, colorPrimaryDarkNext);
-                }
-
-                appBarLayout.setBackgroundColor(colorPrimaryBlend);
-                coordinatorLayout.setStatusBarBackgroundColor(colorPrimaryDarkBlend);
-            }
-        });
+        viewPager.addOnPageChangeListener(new ScrollColorBlender());
 
         tabLayout.setupWithViewPager(viewPager);
         for (FuelType fuelType : FuelType.VALUES) {
@@ -99,13 +62,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private final Context context;
-
-        public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    private static class SectionsPagerAdapter extends FragmentPagerAdapter {
+        public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            this.context = context;
         }
 
         @Override
@@ -120,7 +79,43 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return context.getString(FuelType.valueOf(position).nameRes);
+            return FuelType.valueOf(position).getResourceCache().name;
+        }
+    }
+
+    private class ScrollColorBlender extends ViewPager.SimpleOnPageChangeListener {
+
+        private final ArgbEvaluator colorEvaluator = new ArgbEvaluator();
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            final int colorPrimaryCurrent = FuelType.valueOf(position).getResourceCache().colorPrimary;
+            final int colorPrimaryDarkCurrent = FuelType.valueOf(position).getResourceCache().colorPrimaryDark;
+
+            final int colorPrimaryBlend;
+            final int colorPrimaryDarkBlend;
+
+            if (positionOffset == 0) {
+                // No movement: easy
+                colorPrimaryBlend = colorPrimaryCurrent;
+                colorPrimaryDarkBlend = colorPrimaryDarkCurrent;
+            } else {
+                // The offset is always [0,1) and the scroll happens always between position n and n+1
+                final int colorPrimaryNext = FuelType.valueOf(position + 1).getResourceCache().colorPrimary;
+                final int colorPrimaryDarkNext = FuelType.valueOf(position + 1).getResourceCache().colorPrimaryDark;
+
+                // Blend
+                colorPrimaryBlend = (int) colorEvaluator.evaluate(positionOffset,
+                        colorPrimaryCurrent,
+                        colorPrimaryNext);
+                colorPrimaryDarkBlend = (int) colorEvaluator.evaluate(positionOffset,
+                        colorPrimaryDarkCurrent,
+                        colorPrimaryDarkNext);
+            }
+
+            appBarLayout.setBackgroundColor(colorPrimaryBlend);
+            fab.setBackgroundTintList(ColorStateList.valueOf(colorPrimaryBlend));
+            coordinatorLayout.setStatusBarBackgroundColor(colorPrimaryDarkBlend);
         }
     }
 }

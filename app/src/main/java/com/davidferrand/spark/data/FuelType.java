@@ -1,6 +1,11 @@
 package com.davidferrand.spark.data;
 
+import android.content.Context;
+
 import com.davidferrand.spark.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum FuelType {
     ELECTRICITY(
@@ -28,7 +33,41 @@ public enum FuelType {
         this.colorPrimaryDarkRes = colorPrimaryDarkRes;
     }
 
+    public ResourceCache getResourceCache() {
+        return ResourceCache.MAP_CACHES.get(this);
+    }
+
     public static FuelType valueOf(int position) {
         return FuelType.VALUES[position];
+    }
+
+    /**
+     * Used to cache values of resources that can only be loaded with a {@link Context} (strings,
+     * colours).
+     */
+    public static class ResourceCache {
+
+        public final String name;
+        public final int colorPrimary;
+        public final int colorPrimaryDark;
+
+        private static final Map<FuelType, ResourceCache> MAP_CACHES = new HashMap<>();
+
+        /**
+         * Loads the cache by fetching the values of the resources.
+         * Should be called as early as possible (in the Application's onCreate()) and every time
+         * there's a configuration change, if necessary.
+         */
+        public static void init(Context context) {
+            for (FuelType fuelType : VALUES) {
+                MAP_CACHES.put(fuelType, new ResourceCache(context, fuelType));
+            }
+        }
+
+        private ResourceCache(Context context, FuelType fuelType) {
+            name = context.getString(fuelType.nameRes);
+            colorPrimary = context.getResources().getColor(fuelType.colorPrimaryRes);
+            colorPrimaryDark = context.getResources().getColor(fuelType.colorPrimaryDarkRes);
+        }
     }
 }

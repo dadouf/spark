@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.davidferrand.spark.R;
-import com.davidferrand.spark.data.Meter;
+import com.davidferrand.spark.data.FuelType;
 
 public class MeterOverviewFragment extends Fragment {
 
     private static final String ARG_FUEL_TYPE = "fuelType";
 
-    public static Fragment newInstance(Meter.FuelType fuelType) {
+    public static Fragment newInstance(FuelType fuelType) {
         MeterOverviewFragment fragment = new MeterOverviewFragment();
 
         Bundle args = new Bundle();

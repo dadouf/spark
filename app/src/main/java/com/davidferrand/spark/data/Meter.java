@@ -30,12 +30,4 @@ public class Meter extends RealmObject {
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType.name();
     }
-
-    public enum FuelType {
-        ELECTRICITY, GAS
-    }
-
-    public enum PaymentType {
-        STANDARD, PREPAYMENT
-    }
 }

@@ -15,7 +15,7 @@ public class MeterReading extends RealmObject {
 
     /**
      * Credit value read on the meter. Decreases with time.
-     * Used only with a {@link Meter.PaymentType#PREPAYMENT} meter.
+     * Used only with a {@link PaymentType#PREPAYMENT} meter.
      */
     private Float meterCreditReading;
 }

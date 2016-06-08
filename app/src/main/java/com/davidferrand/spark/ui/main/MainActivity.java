@@ -1,5 +1,6 @@
 package com.davidferrand.spark.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,31 +13,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.davidferrand.spark.R;
-import com.davidferrand.spark.data.Meter;
+import com.davidferrand.spark.data.FuelType;
 import com.davidferrand.spark.ui.meter.MeterOverviewFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SectionsPagerAdapter sectionsPagerAdapter;
-    private ViewPager viewPager;
+    @BindView(R.id.main_view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.main_tabs)
+    TabLayout tabLayout;
+    @BindView(R.id.main_fab)
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ButterKnife.bind(this);
 
-        // Set up the ViewPager with the sections adapter.
-        viewPager = (ViewPager) findViewById(R.id.main_view_pager);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+
         viewPager.setAdapter(sectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_power_white_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_whatshot_white_24dp);
+        for (FuelType fuelType : FuelType.VALUES) {
+            tabLayout.getTabAt(fuelType.ordinal()).setIcon(fuelType.iconRes);
+        }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.main_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,42 +51,30 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public static class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private final Context context;
+
+        public SectionsPagerAdapter(Context context, FragmentManager fm) {
             super(fm);
+            this.context = context;
         }
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) {
-                return MeterOverviewFragment.newInstance(Meter.FuelType.ELECTRICITY);
-            } else {
-                return MeterOverviewFragment.newInstance(Meter.FuelType.GAS);
-            }
+            return MeterOverviewFragment.newInstance(FuelType.valueOf(position));
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return FuelType.VALUES.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return Meter.FuelType.ELECTRICITY.name();
-                case 1:
-                    return Meter.FuelType.GAS.name();
-            }
-            return null;
+            return context.getString(FuelType.valueOf(position).nameRes);
         }
     }
 }

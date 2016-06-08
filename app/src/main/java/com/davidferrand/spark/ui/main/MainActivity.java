@@ -3,6 +3,7 @@ package com.davidferrand.spark.ui.main;
 import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_view_group)
     CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.main_appbar)
+    AppBarLayout appBarLayout;
 
     @BindView(R.id.main_view_pager)
     ViewPager viewPager;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // TODO cache colors
                 final int colorPrimaryCurrent = getResources().getColor(FuelType.valueOf(position).colorPrimaryRes);
                 final int colorPrimaryDarkCurrent = getResources().getColor(FuelType.valueOf(position).colorPrimaryDarkRes);
 
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // The offset is always [0,1) and the scroll happens always between position n and n+1
                     final int colorPrimaryNext = getResources().getColor(FuelType.valueOf(position + 1).colorPrimaryRes);
-                    final int colorPrimaryDarkNext = getResources().getColor(FuelType.valueOf(position + 1).colorPrimaryRes);
+                    final int colorPrimaryDarkNext = getResources().getColor(FuelType.valueOf(position + 1).colorPrimaryDarkRes);
 
                     // Blend
                     colorPrimaryBlend = (int) new ArgbEvaluator().evaluate(positionOffset,
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                             colorPrimaryDarkCurrent, colorPrimaryDarkNext);
                 }
 
-                coordinatorLayout.setBackgroundColor(colorPrimaryBlend);
+                appBarLayout.setBackgroundColor(colorPrimaryBlend);
                 coordinatorLayout.setStatusBarBackgroundColor(colorPrimaryDarkBlend);
             }
         });

@@ -4,11 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <!-- Material Amber 500, 700 -->
-    <color name="electricity_colorPrimary">#FFC107</color>
-    <color name="electricity_colorPrimaryDark">#FFA000</color>
+    <!-- Material Orange 500, 700 -->
+    <color name="electricity_colorPrimary">#FF9800</color>
+    <color name="electricity_colorPrimaryDark">#F57C00</color>
 
-    <!-- Material Deep Purple 500, 700 -->
-    <color name="gas_colorPrimary">#673AB7</color>
-    <color name="gas_colorPrimaryDark">#512DA8</color>
+    <!-- Material Teal 500, 700 -->
+    <color name="gas_colorPrimary">#009688</color>
+    <color name="gas_colorPrimaryDark">#00796B</color>
 </resources>

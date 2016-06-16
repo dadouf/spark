@@ -1,4 +1,4 @@
-package com.davidferrand.spark.ui.setupmeter;
+package com.davidferrand.spark.ui.addreading;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,11 +6,11 @@ import android.content.Intent;
 import com.davidferrand.spark.data.FuelType;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
-public class SetupMeterActivity extends RxAppCompatActivity {
+public class AddReadingActivity extends RxAppCompatActivity {
     private static final String ARG_FUEL_TYPE = "fuelType";
 
     public static void start(Activity parent, FuelType fuelType) {
-        Intent i = new Intent(parent, SetupMeterActivity.class);
+        Intent i = new Intent(parent, AddReadingActivity.class);
         i.putExtra(ARG_FUEL_TYPE, fuelType.name());
 
         parent.startActivity(i);

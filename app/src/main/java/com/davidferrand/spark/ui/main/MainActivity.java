@@ -15,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import com.davidferrand.spark.R;
 import com.davidferrand.spark.data.FuelType;
 import com.davidferrand.spark.data.Meter;
+import com.davidferrand.spark.ui.addreading.AddReadingActivity;
+import com.davidferrand.spark.ui.setupmeter.SetupMeterActivity;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.BindView;
@@ -58,10 +60,6 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
         }
 
         onPageSelected(0);
-
-        fab.setOnClickListener(v -> {
-
-        });
     }
 
     @Override
@@ -95,15 +93,19 @@ public class MainActivity extends RxAppCompatActivity implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
+        FuelType fuelType = FuelType.valueOf(position);
+
         Meter m = mainRealm
                 .where(Meter.class)
-                .equalTo("fuelType", FuelType.valueOf(position).name())
+                .equalTo("fuelType", fuelType.name())
                 .findFirst();
 
         if (m == null) {
             fab.setImageResource(R.drawable.ic_settings_white_24dp);
+            fab.setOnClickListener(v -> SetupMeterActivity.start(MainActivity.this, fuelType));
         } else {
             fab.setImageResource(R.drawable.ic_add_white_24dp);
+            fab.setOnClickListener(v -> AddReadingActivity.start(MainActivity.this, fuelType));
         }
     }
 

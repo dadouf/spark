@@ -6,11 +6,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.davidferrand.spark.ui.meter.MeterOverviewFragment">
+    tools:context=".ui.main.MeterOverviewFragment">
 
     <TextView
         android:id="@+id/meter_overview_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:text="@string/meter_overview_setup" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.davidferrand.spark.ui.meter;
+package com.davidferrand.spark.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,13 +25,22 @@ public class MeterOverviewFragment extends RxFragment {
         return fragment;
     }
 
+    private FuelType fuelType;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        fuelType = FuelType.valueOf(getArguments().getString(ARG_FUEL_TYPE));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_meter_overview, container, false);
 
         TextView textView = (TextView) v.findViewById(R.id.meter_overview_text);
-        textView.setText(getString(R.string.section_format, getArguments().getString(ARG_FUEL_TYPE)));
+        textView.setText(getString(R.string.meter_overview_setup, fuelType.getResourceCache().name.toLowerCase()));
 
         return v;
     }

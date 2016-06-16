@@ -16,6 +16,9 @@ buildscript {
 
         // Android Apt: for Butterknife
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+
+        // RetroLambda
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 

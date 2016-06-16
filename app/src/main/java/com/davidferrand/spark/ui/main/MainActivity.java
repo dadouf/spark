@@ -6,23 +6,21 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.davidferrand.spark.R;
 import com.davidferrand.spark.data.FuelType;
 import com.davidferrand.spark.ui.meter.MeterOverviewFragment;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends RxAppCompatActivity {
 
     @BindView(R.id.main_view_group)
     CoordinatorLayout coordinatorLayout;
@@ -53,12 +51,8 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.getTabAt(fuelType.ordinal()).setIcon(fuelType.iconRes);
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab.setOnClickListener(v -> {
+
         });
     }
 

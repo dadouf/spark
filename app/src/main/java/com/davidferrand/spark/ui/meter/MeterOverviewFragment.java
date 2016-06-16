@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import com.davidferrand.spark.R;
 import com.davidferrand.spark.data.FuelType;
+import com.trello.rxlifecycle.components.support.RxFragment;
 
-public class MeterOverviewFragment extends Fragment {
+public class MeterOverviewFragment extends RxFragment {
 
     private static final String ARG_FUEL_TYPE = "fuelType";
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material Teal 500, 700 -->
+    <color name="theme_gas_colorPrimary">#009688</color>
+    <color name="theme_gas_colorPrimaryDark">#00796B</color>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.Gas" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/theme_gas_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/theme_gas_colorPrimaryDark</item>
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.Gas.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

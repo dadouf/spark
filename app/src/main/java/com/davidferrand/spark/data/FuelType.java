@@ -11,13 +11,13 @@ public enum FuelType {
     ELECTRICITY(
             R.drawable.ic_power_white_24dp,
             R.string.electricity,
-            R.color.electricity_colorPrimary,
-            R.color.electricity_colorPrimaryDark),
+            R.color.theme_electricity_colorPrimary,
+            R.color.theme_electricity_colorPrimaryDark),
     GAS(
             R.drawable.ic_whatshot_white_24dp,
             R.string.gas,
-            R.color.gas_colorPrimary,
-            R.color.gas_colorPrimaryDark);
+            R.color.theme_gas_colorPrimary,
+            R.color.theme_gas_colorPrimaryDark);
 
     public static final FuelType[] VALUES = FuelType.values();
 

@@ -1,14 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-
-    <!-- Material Orange 500, 700 -->
-    <color name="electricity_colorPrimary">#FF9800</color>
-    <color name="electricity_colorPrimaryDark">#F57C00</color>
-
-    <!-- Material Teal 500, 700 -->
-    <color name="gas_colorPrimary">#009688</color>
-    <color name="gas_colorPrimaryDark">#00796B</color>
 </resources>

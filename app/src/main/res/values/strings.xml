@@ -5,4 +5,5 @@
     <string name="gas">Gas</string>
     <string name="setup_meter_activity_label">Setup meter</string>
     <string name="add_reading_activity_label">Add a reading</string>
+    <string name="setup_meter_hint_name">Name</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.davidferrand.spark.data;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 
 import com.davidferrand.spark.R;
 
@@ -11,26 +12,22 @@ public enum FuelType {
     ELECTRICITY(
             R.drawable.ic_power_white_24dp,
             R.string.electricity,
-            R.color.theme_electricity_colorPrimary,
-            R.color.theme_electricity_colorPrimaryDark),
+            R.style.AppTheme_Electricity_NoActionBar),
     GAS(
             R.drawable.ic_whatshot_white_24dp,
             R.string.gas,
-            R.color.theme_gas_colorPrimary,
-            R.color.theme_gas_colorPrimaryDark);
+            R.style.AppTheme_Gas_NoActionBar);
 
     public static final FuelType[] VALUES = FuelType.values();
 
     public final int iconRes;
     public final int nameRes;
-    public final int colorPrimaryRes;
-    public final int colorPrimaryDarkRes;
+    public final int themeRes;
 
-    FuelType(int iconTabRes, int nameRes, int colorPrimaryRes, int colorPrimaryDarkRes) {
+    FuelType(int iconTabRes, int nameRes, int themeRes) {
         this.iconRes = iconTabRes;
         this.nameRes = nameRes;
-        this.colorPrimaryRes = colorPrimaryRes;
-        this.colorPrimaryDarkRes = colorPrimaryDarkRes;
+        this.themeRes = themeRes;
     }
 
     public ResourceCache getResourceCache() {
@@ -66,8 +63,11 @@ public enum FuelType {
 
         private ResourceCache(Context context, FuelType fuelType) {
             name = context.getString(fuelType.nameRes);
-            colorPrimary = context.getResources().getColor(fuelType.colorPrimaryRes);
-            colorPrimaryDark = context.getResources().getColor(fuelType.colorPrimaryDarkRes);
+
+            TypedArray a = context.getTheme().obtainStyledAttributes(fuelType.themeRes, new int[]{R.attr.colorPrimary, R.attr.colorPrimaryDark});
+            colorPrimary = a.getColor(0, 0);
+            colorPrimaryDark = a.getColor(1, 0);
+            a.recycle();
         }
     }
 }

@@ -29,14 +29,10 @@ public class SetupMeterActivity extends RxAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         fuelType = FuelType.valueOf(getIntent().getStringExtra(ARG_FUEL_TYPE));
-        if (fuelType == FuelType.ELECTRICITY) {
-            setTheme(R.style.AppTheme_Electricity_NoActionBar);
-        } else {
-            setTheme(R.style.AppTheme_Gas_NoActionBar);
-        }
+        setTheme(fuelType.themeRes);
+
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_setup_meter);
 

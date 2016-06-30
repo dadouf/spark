@@ -18,10 +18,12 @@
         </activity>
         <activity
             android:name=".ui.setupmeter.SetupMeterActivity"
-            android:label="@string/setup_meter_activity_label" />
+            android:label="@string/setup_meter_activity_label"
+            android:parentActivityName=".ui.main.MainActivity" />
         <activity
             android:name=".ui.addreading.AddReadingActivity"
-            android:label="@string/add_reading_activity_label" />
+            android:label="@string/add_reading_activity_label"
+            android:parentActivityName=".ui.main.MainActivity" />
     </application>
 
 </manifest>

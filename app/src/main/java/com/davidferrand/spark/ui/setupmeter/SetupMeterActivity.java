@@ -3,10 +3,12 @@ package com.davidferrand.spark.ui.setupmeter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 
 import com.davidferrand.spark.R;
 import com.davidferrand.spark.data.FuelType;
+import com.davidferrand.spark.data.PaymentType;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.BindView;
@@ -19,6 +21,8 @@ public class SetupMeterActivity extends RxAppCompatActivity {
 
     @BindView(R.id.setup_meter_toolbar)
     Toolbar toolbar;
+    @BindView(R.id.setup_meter_payment_type_tabs)
+    TabLayout paymentTypeTabs;
 
     public static void start(Context context, FuelType fuelType) {
         Intent i = new Intent(context, SetupMeterActivity.class);
@@ -40,5 +44,9 @@ public class SetupMeterActivity extends RxAppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        for (PaymentType pt : PaymentType.values()) {
+            paymentTypeTabs.addTab(paymentTypeTabs.newTab().setText(pt.name()));
+        }
     }
 }

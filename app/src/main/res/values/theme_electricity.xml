@@ -3,13 +3,13 @@
     <!-- Material Orange 500, 700 -->
     <color name="theme_electricity_colorPrimary">#FF9800</color>
     <color name="theme_electricity_colorPrimaryDark">#F57C00</color>
+    <!-- Material Deep Orange 500 -->
+    <color name="theme_electricity_colorAccent">#FF5722</color>
 
-    <!-- Base application theme. -->
     <style name="AppTheme.Electricity" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/theme_electricity_colorPrimary</item>
         <item name="colorPrimaryDark">@color/theme_electricity_colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/theme_electricity_colorAccent</item>
     </style>
 
     <style name="AppTheme.Electricity.NoActionBar">

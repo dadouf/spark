@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Spark</string>
-    <string name="meter_overview_setup">Setup your %1$s meter</string>
+    <string name="meter_overview_setup">Tap the <b>+</b> to add your first %1$s reading</string>
     <string name="electricity">Electricity</string>
     <string name="gas">Gas</string>
     <string name="setup_meter_activity_label">Setup meter</string>
